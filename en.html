@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>三件小事</title>
+    
+    <!-- PWA支持 -->
+    <link rel="manifest" href="manifest-en.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Three Things">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+        
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
         
@@ -337,9 +347,9 @@
             
             <div class="input-group">
                 <input type="text" class="gratitude-input" id="gratitude1" placeholder="第一件小事" maxlength="100">
-                <input type="text" class="gratitude-input" id="gratitude2" placeholder="第二件小事" maxlength="100">
-                <input type="text" class="gratitude-input" id="gratitude3" placeholder="第三件小事" maxlength="100">
-            </div>
+                    <input type="text" class="gratitude-input" id="gratitude2" placeholder="第二件小事" maxlength="100">
+                        <input type="text" class="gratitude-input" id="gratitude3" placeholder="第三件小事" maxlength="100">
+                        </div>
             
             <div class="button-group">
                 <button class="save-btn" id="saveBtn" onclick="saveGratitudes()">保存</button>
@@ -347,7 +357,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- 历史记录界面 -->
     <div class="history-view" id="historyView">
         <div class="history-header">
@@ -356,10 +366,10 @@
         </div>
         <div class="history-content" id="historyContent"></div>
     </div>
-
+    
     <!-- 成功消息 -->
     <div class="success-message" id="successMessage">已保存</div>
-
+    
     <script>
         // 初始化
         let gratitudes = JSON.parse(localStorage.getItem('gratitudes')) || [];
@@ -438,21 +448,21 @@
             
             content.innerHTML = gratitudes.map((entry, index) => {
                 const date = new Date(entry.date);
-                const dateStr = date.toLocaleDateString('zh-CN', { 
-                    year: 'numeric', 
-                    month: 'long', 
+                const dateStr = date.toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
                     day: 'numeric',
                     weekday: 'long'
                 });
                 
                 return `
-                    <div class="entry" style="animation-delay: ${index * 0.1}s">
+                        <div class="entry" style="animation-delay: ${index * 0.1}s">
                         <div class="entry-date">${dateStr}</div>
                         ${entry.items.map((item, idx) => `
-                            <div class="gratitude-item">
-                                <span class="gratitude-number">${idx + 1}</span>
-                                ${item}
-                            </div>
+                        <div class="gratitude-item">
+                        <span class="gratitude-number">${idx + 1}</span>
+                        ${item}
+                        </div>
                         `).join('')}
                     </div>
                 `;
@@ -527,6 +537,18 @@
         
         // 每分钟更新日期
         setInterval(displayCurrentDate, 60000);
+    </script>
+    <script>
+      // 注册 Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful');
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
     </script>
 </body>
 </html>

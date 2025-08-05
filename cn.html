@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Three Things</title>
+    
+    <!-- PWA支持 -->
+    <link rel="manifest" href="manifest-cn.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="三件小事">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+        
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500&display=swap');
         
@@ -340,9 +350,9 @@
             
             <div class="input-group">
                 <input type="text" class="gratitude-input" id="gratitude1" placeholder="First thing" maxlength="100">
-                <input type="text" class="gratitude-input" id="gratitude2" placeholder="Second thing" maxlength="100">
-                <input type="text" class="gratitude-input" id="gratitude3" placeholder="Third thing" maxlength="100">
-            </div>
+                    <input type="text" class="gratitude-input" id="gratitude2" placeholder="Second thing" maxlength="100">
+                        <input type="text" class="gratitude-input" id="gratitude3" placeholder="Third thing" maxlength="100">
+                        </div>
             
             <div class="button-group">
                 <button class="save-btn" id="saveBtn" onclick="saveGratitudes()">Save</button>
@@ -350,7 +360,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- History View -->
     <div class="history-view" id="historyView">
         <div class="history-header">
@@ -359,10 +369,10 @@
         </div>
         <div class="history-content" id="historyContent"></div>
     </div>
-
+    
     <!-- Success Message -->
     <div class="success-message" id="successMessage">Saved</div>
-
+    
     <script>
         // Initialize
         let gratitudes = JSON.parse(localStorage.getItem('gratitudes_en')) || [];
@@ -371,11 +381,11 @@
         // Display current date
         function displayCurrentDate() {
             const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             };
             const dateStr = now.toLocaleDateString('en-US', options);
             document.getElementById('dateDisplay').textContent = dateStr;
@@ -446,21 +456,21 @@
             
             content.innerHTML = gratitudes.map((entry, index) => {
                 const date = new Date(entry.date);
-                const dateStr = date.toLocaleDateString('en-US', { 
+                const dateStr = date.toLocaleDateString('en-US', {
                     weekday: 'long',
-                    year: 'numeric', 
-                    month: 'long', 
+                    year: 'numeric',
+                    month: 'long',
                     day: 'numeric'
                 });
                 
                 return `
-                    <div class="entry" style="animation-delay: ${index * 0.1}s">
+                        <div class="entry" style="animation-delay: ${index * 0.1}s">
                         <div class="entry-date">${dateStr}</div>
                         ${entry.items.map((item, idx) => `
-                            <div class="gratitude-item">
-                                <span class="gratitude-number">${idx + 1}</span>
-                                ${item}
-                            </div>
+                        <div class="gratitude-item">
+                        <span class="gratitude-number">${idx + 1}</span>
+                        ${item}
+                        </div>
                         `).join('')}
                     </div>
                 `;
@@ -535,6 +545,18 @@
         
         // Update date every minute
         setInterval(displayCurrentDate, 60000);
+    </script>
+    <script>
+      // 注册 Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful');
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
     </script>
 </body>
 </html>
