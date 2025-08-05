@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三件小事</title>
+    <title>Three Things</title>
     
-    <!-- PWA支持 -->
-    <link rel="manifest" href="./manifest-cn.json">
+    <!-- PWA Support -->
+    <link rel="manifest" href="./manifest-en.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="三件小事">
+    <meta name="apple-mobile-web-app-title" content="Three Things">
     <link rel="apple-touch-icon" href="./icon-192.png">
     <meta name="theme-color" content="#000000">
     <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;500&display=swap');
         
         * {
             margin: 0;
@@ -24,14 +24,14 @@
         }
 
         body {
-            font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', serif;
+            font-family: 'Noto Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', serif;
             background: #000000;
             min-height: 100vh;
             color: #FFFFFF;
             overflow: hidden;
         }
 
-        /* 主界面 - 今日记录 */
+        /* Main View - Today's Entry */
         .main-view {
             position: fixed;
             top: 0;
@@ -155,7 +155,7 @@
             cursor: not-allowed;
         }
 
-        /* 历史记录界面 */
+        /* History View */
         .history-view {
             position: fixed;
             top: 0;
@@ -261,7 +261,7 @@
             font-weight: 300;
         }
 
-        /* 成功消息 */
+        /* Success Message */
         .success-message {
             position: fixed;
             bottom: 40px;
@@ -282,7 +282,7 @@
             opacity: 1;
         }
 
-        /* 动画 */
+        /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -305,7 +305,7 @@
             }
         }
 
-        /* 沉浸式输入状态 */
+        /* Focused Input State */
         .focused-mode .date-display,
         .focused-mode .history-btn {
             opacity: 0.2;
@@ -318,7 +318,7 @@
             transition: all 0.5s ease;
         }
 
-        /* 响应式优化 */
+        /* Responsive Optimization */
         @media (max-width: 600px) {
             h1 {
                 font-size: 24px;
@@ -339,51 +339,51 @@
     </style>
 </head>
 <body>
-    <!-- 主界面 - 今日记录 -->
+    <!-- Main View - Today's Entry -->
     <div class="main-view" id="mainView">
         <div class="input-container">
-            <h1>三件小事</h1>
+            <h1>Three Things</h1>
             <div class="date-display" id="dateDisplay"></div>
             
             <div class="input-group">
-                <input type="text" class="gratitude-input" id="gratitude1" placeholder="第一件小事" maxlength="100">
-                <input type="text" class="gratitude-input" id="gratitude2" placeholder="第二件小事" maxlength="100">
-                <input type="text" class="gratitude-input" id="gratitude3" placeholder="第三件小事" maxlength="100">
+                <input type="text" class="gratitude-input" id="gratitude1" placeholder="First thing" maxlength="100">
+                <input type="text" class="gratitude-input" id="gratitude2" placeholder="Second thing" maxlength="100">
+                <input type="text" class="gratitude-input" id="gratitude3" placeholder="Third thing" maxlength="100">
             </div>
             
             <div class="button-group">
-                <button class="save-btn" id="saveBtn" onclick="saveGratitudes()">保存</button>
-                <button class="history-btn" onclick="showHistory()">历史记录</button>
+                <button class="save-btn" id="saveBtn" onclick="saveGratitudes()">Save</button>
+                <button class="history-btn" onclick="showHistory()">History</button>
             </div>
         </div>
     </div>
 
-    <!-- 历史记录界面 -->
+    <!-- History View -->
     <div class="history-view" id="historyView">
         <div class="history-header">
-            <h2 class="history-title">历史记录</h2>
-            <button class="back-btn" onclick="hideHistory()">返回</button>
+            <h2 class="history-title">History</h2>
+            <button class="back-btn" onclick="hideHistory()">Back</button>
         </div>
         <div class="history-content" id="historyContent"></div>
     </div>
 
-    <!-- 成功消息 -->
-    <div class="success-message" id="successMessage">已保存</div>
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">Saved</div>
 
     <script>
-        // 初始化
+        // Initialize
         let gratitudes = JSON.parse(localStorage.getItem('gratitudes')) || [];
         let focusedInputs = 0;
         
-        // 显示当前日期
+        // Show current date
         function displayCurrentDate() {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('zh-CN', options);
+            const dateStr = now.toLocaleDateString('en-US', options);
             document.getElementById('dateDisplay').textContent = dateStr;
         }
         
-        // 保存记录
+        // Save record
         function saveGratitudes() {
             const gratitude1 = document.getElementById('gratitude1').value.trim();
             const gratitude2 = document.getElementById('gratitude2').value.trim();
@@ -402,19 +402,19 @@
             gratitudes.unshift(entry);
             localStorage.setItem('gratitudes', JSON.stringify(gratitudes));
             
-            // 清空输入框
+            // Clear input fields
             document.getElementById('gratitude1').value = '';
             document.getElementById('gratitude2').value = '';
             document.getElementById('gratitude3').value = '';
             
-            // 显示成功消息
+            // Show success message
             showSuccessMessage();
             
-            // 移除焦点
+            // Remove focus
             document.activeElement.blur();
         }
         
-        // 显示成功消息
+        // Show success message
         function showSuccessMessage() {
             const message = document.getElementById('successMessage');
             message.classList.add('show');
@@ -424,33 +424,33 @@
             }, 2000);
         }
         
-        // 显示历史记录
+        // Show history
         function showHistory() {
             document.getElementById('mainView').classList.add('hidden');
             document.getElementById('historyView').classList.add('active');
             displayHistory();
         }
         
-        // 隐藏历史记录
+        // Hide history
         function hideHistory() {
             document.getElementById('mainView').classList.remove('hidden');
             document.getElementById('historyView').classList.remove('active');
         }
         
-        // 显示历史记录内容
+        // Display history content
         function displayHistory() {
             const content = document.getElementById('historyContent');
             
             if (gratitudes.length === 0) {
-                content.innerHTML = '<div class="empty-state">暂无记录</div>';
+                content.innerHTML = '<div class="empty-state">No records available</div>';
                 return;
             }
             
             content.innerHTML = gratitudes.map((entry, index) => {
                 const date = new Date(entry.date);
-                const dateStr = date.toLocaleDateString('zh-CN', { 
-                    year: 'numeric', 
-                    month: 'long', 
+                const dateStr = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
                     day: 'numeric',
                     weekday: 'long'
                 });
@@ -469,7 +469,7 @@
             }).join('');
         }
         
-        // 沉浸式输入体验
+        // Focused input experience
         const inputs = document.querySelectorAll('.gratitude-input');
         const mainView = document.getElementById('mainView');
         
@@ -491,7 +491,7 @@
             });
         });
         
-        // 回车键切换
+        // Enter key navigation
         document.getElementById('gratitude1').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -513,34 +513,30 @@
             }
         });
         
-        // 检查保存按钮状态
+        // Check save button status
         function checkSaveButton() {
             const gratitude1 = document.getElementById('gratitude1').value.trim();
             const gratitude2 = document.getElementById('gratitude2').value.trim();
             const gratitude3 = document.getElementById('gratitude3').value.trim();
             const saveBtn = document.getElementById('saveBtn');
             
-            if (gratitude1 && gratitude2 && gratitude3) {
-                saveBtn.disabled = false;
-            } else {
-                saveBtn.disabled = true;
-            }
+            saveBtn.disabled = !(gratitude1 && gratitude2 && gratitude3);
         }
         
         inputs.forEach(input => {
             input.addEventListener('input', checkSaveButton);
         });
         
-        // 初始化
+        // Initialize
         displayCurrentDate();
         checkSaveButton();
         
-        // 每分钟更新日期
+        // Update date every minute
         setInterval(displayCurrentDate, 60000);
     </script>
 
     <script>
-        // 注册 Service Worker
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('./sw.js').then(function(registration) {

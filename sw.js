@@ -1,13 +1,15 @@
 // Service Worker for Three Things App
 const CACHE_NAME = 'three-things-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/cn.html',
-  '/en.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  './',
+  './index.html',
+  './cn.html', 
+  './en.html',
+  './manifest.json',
+  './manifest-cn.json',
+  './manifest-en.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 // Install Service Worker
@@ -26,7 +28,6 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Cache hit - return response
         if (response) {
           return response;
         }
