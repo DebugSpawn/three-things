@@ -1,14 +1,19 @@
 {
+  "id": "three-things-app",
   "name": "Three Things - Daily Gratitude",
   "short_name": "Three Things",
   "description": "Record three things you're grateful for each day",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "orientation": "portrait",
   "categories": ["lifestyle", "productivity"],
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "navigate-new"
+  },
   "icons": [
     {
       "src": "./icon-192.png",
