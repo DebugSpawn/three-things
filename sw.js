@@ -1,4 +1,10 @@
-// Service Worker for Three Things App
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(clients.claim());
+});// Service Worker for Three Things App
 const CACHE_NAME = 'three-things-v1';
 const urlsToCache = [
   './',
